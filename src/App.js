@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from 'react';
+import useWordGame from './useWordGame';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const {
+		textBoxRef,
+		handleChange,
+		text,
+		isTimeRunning,
+		timeRemaining,
+		startGame,
+		wordCount,
+	} = useWordGame(36);
+
+	return (
+		<div>
+			<h1>HOW FAST DO YOU TYPE?</h1>
+			<textarea
+				value={text}
+				onChange={handleChange}
+				disabled={!isTimeRunning}
+				ref={textBoxRef}></textarea>
+			<h4>Time remaining: {timeRemaining}</h4>
+			<button onClick={startGame} disabled={isTimeRunning}>
+				START
+			</button>
+			<h4>Word count: {wordCount}</h4>
+		</div>
+	);
 }
 
 export default App;
